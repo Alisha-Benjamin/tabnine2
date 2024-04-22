@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Media Page</title>
+<style>
+  body { font-family: Arial, sans-serif; }
+  .container { max-width: 800px; margin: auto; padding: 20px; }
+  .photo { width: 100%; margin-bottom: 20px; }
+  .footer { text-align: center; margin-top: 20px; font-size: 0.8em; }
+  .like-button, .comment-button { border: none; background-color: transparent; cursor: pointer; }
+  .like-button:focus, .comment-button:focus { outline: none; }
+  .heart { color: #bbb; }
+  .heart.liked { color: red; }
+  .comments { margin-top: 10px; }
+  .comment { margin-bottom: 5px; }
+  .social-links { margin-top: 20px; }
+  .social-links a { margin-right: 10px; }
+  label { display: block; margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img src="photo.jpg" alt="A beautiful scenery" class="photo">
+  <button class="like-button"><span class="heart">&#x2661;</span> Like</button>
+  <span class="likes-count">0 Likes</span>
+  <div class="comments">
+    <label for="commentInput">Add a comment:</label>
+    <input type="text" id="commentInput" placeholder="Type your comment here...">
+    <button class="comment-button">Comment</button>
+    <div class="comment-list"></div>
+  </div>
+  <div class="footer">
+    &copy; 2023 Your Social Media. All rights reserved.
+    <div class="social-links">
+      <a href="https://twitter.com">Twitter</a>
+      <a href="https://instagram.com">Instagram</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelector('.like-button').addEventListener('click', function() {
+    var heart = this.querySelector('.heart');
+    var likesCount = document.querySelector('.likes-count');
+    var count = parseInt(likesCount.textContent);
+    if (heart.classList.contains('liked')) {
+      heart.classList.remove('liked');
+      heart.innerHTML = '&#x2661;';
+      likesCount.textContent = `${--count} Likes`;
+    } else {
+      heart.classList.add('liked');
+      heart.innerHTML = '&#x2665;';
+      likesCount.textContent = `${++count} Likes`;
+    }
+  });
+
+  document.querySelector('.comment-button').addEventListener('click', function() {
+    var commentInput = document.getElementById('commentInput');
+    if (commentInput.value.trim() !== '') {
+      var commentList = document.querySelector('.comment-list');
+      var newComment = document.createElement('div');
+      newComment.textContent = commentInput.value;
+      newComment.classList.add('comment');
+      commentList.appendChild(newComment);
+      commentInput.value = ''; // Clear input after adding
+    }
+  });
+</script>
+
+</body>
+</html>
